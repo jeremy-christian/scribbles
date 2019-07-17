@@ -1,0 +1,11 @@
+mkdir blobs;
+for obj in $(find .git/objects -type f | awk -F/ '{print $3$4}'); 
+    do obj_type=$(git cat-file -t $obj); 
+    if [ $obj_type == blob ]; 
+        then git cat-file -p $obj > ./blobs/$obj.txt; 
+    fi; 
+done
+
+// this bash script will grab all your git blob objects and throw them in the ./blobs dir
+// its the final hail mary if you've accidentally lost work through version control
+// just run it somewhere in your repo
